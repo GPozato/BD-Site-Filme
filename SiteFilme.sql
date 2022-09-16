@@ -34,7 +34,17 @@ ALTER TABLE GeneroFilme ADD CONSTRAINT FK_GeneroFilme_TipoAtuacao
 	FOREIGN KEY(idTipoAtuacao) REFERENCES TipoAtuacao(idTipoAtuacao);
     
 ALTER TABLE GeneroFilme ADD CONSTRAINT FK_GeneroFilme_Genero
-	FOREIGN KEY(idGenero) REFERENCES TYPES(ID);
+	FOREIGN KEY(idGenero) REFERENCES Genero(idGenero);
+    
+CREATE TABLE IF NOT EXISTS Pessoa(
+	idPessoa INT UNSIGNED NOT NULL,
+    nomePessoa VARCHAR(60),
+    idPais INT UNSIGNED NOT NULL,
+    PRIMARY KEY(idPessoa, idPais)
+);
+
+ALTER TABLE Pessoa ADD CONSTRAINT FK_Pessoa_Pais
+	FOREIGN KEY(idPais) REFERENCES Pais(idPais);
     
 CREATE TABLE IF NOT EXISTS Equipe(
 	idPessoa INT UNSIGNED NOT NULL,
@@ -44,10 +54,23 @@ CREATE TABLE IF NOT EXISTS Equipe(
 );
 
 ALTER TABLE Equipe ADD CONSTRAINT FK_Equipe_Pessoa
-	FOREIGN KEY(idPessoa) REFERENCES TYPES(ID);
+	FOREIGN KEY(idPessoa) REFERENCES Pessoa(idPessoa);
     
 ALTER TABLE Equipe ADD CONSTRAINT FK_Equipe_Filme
-	FOREIGN KEY(idFilme) REFERENCES TYPES(ID);
+	FOREIGN KEY(idFilme) REFERENCES Filme(idFilme);
     
 ALTER TABLE Equipe ADD CONSTRAINT FK_Equipe_TipoAtuacao
-	FOREIGN KEY(idTipoAtuacao) REFERENCES TYPES(ID);
+	FOREIGN KEY(idTipoAtuacao) REFERENCES TipoAtuacao(idTipoAtuacao);
+    
+CREATE TABLE IF NOT EXISTS PaisFilme(
+	idFilme INT UNSIGNED NOT NULL,
+    idPais INT UNSIGNED NOT NULL,
+    PRIMARY KEY(idFilme, idPais)
+);
+
+ALTER TABLE PaisFilme ADD CONSTRAINT FK_PaisFilme_Filme
+	FOREIGN KEY(idFilme) REFERENCES Filme(idFilme);
+
+ALTER TABLE PaisFilme ADD CONSTRAINT FK_PaisFilme_Pais
+	FOREIGN KEY(idPais) REFERENCES Pais(idPais);
+    

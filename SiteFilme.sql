@@ -25,13 +25,13 @@ CREATE TABLE IF NOT EXISTS Pais(
 );
 
 CREATE TABLE IF NOT EXISTS GeneroFilme(
-	idTipoAtuacao INT UNSIGNED NOT NULL,
+	idFilme INT UNSIGNED NOT NULL,
     idGenero INT UNSIGNED NOT NULL,
-    PRIMARY KEY(idTipoAtuacao, idGenero)
+    PRIMARY KEY(idFilme, idGenero)
 );
 
-ALTER TABLE GeneroFilme ADD CONSTRAINT FK_GeneroFilme_TipoAtuacao
-	FOREIGN KEY(idTipoAtuacao) REFERENCES TipoAtuacao(idTipoAtuacao);
+ALTER TABLE GeneroFilme ADD CONSTRAINT FK_GeneroFilme_Filme
+	FOREIGN KEY(idFilme) REFERENCES Filme(idFilme);
     
 ALTER TABLE GeneroFilme ADD CONSTRAINT FK_GeneroFilme_Genero
 	FOREIGN KEY(idGenero) REFERENCES Genero(idGenero);
